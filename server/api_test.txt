@@ -1,0 +1,7 @@
+echo "GET / HTML"
+curl -X GET http://localhost:8383/
+echo
+
+echo "GET /api/data JSON"
+curl -X GET -s http://localhost:8383/api/data | jq 
+echo
