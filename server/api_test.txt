@@ -5,3 +5,7 @@ echo
 echo "GET /api/data JSON"
 curl -X GET -s http://localhost:8383/api/data | jq 
 echo
+
+echo "POST /api/data JSON"
+curl -X POST -H "Content-Type: application/json" -d '{"name": "name2"}' http://localhost:8383/api/data
+echo
