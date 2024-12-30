@@ -9,3 +9,7 @@ echo
 echo "POST /api/data JSON"
 curl -X POST -H "Content-Type: application/json" -d '{"name": "name2"}' http://localhost:8383/api/data
 echo
+
+echo "DELETE /api/data"
+curl -X DELETE -s http://localhost:8383/api/data
+echo

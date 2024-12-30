@@ -3,7 +3,7 @@ const app = express();
 const PORT = 8383;
 
 const data = {
-  users: ['name1']
+  users: ["name1"],
 };
 
 app.use(express.json());
@@ -31,6 +31,12 @@ app.post("/api/data", (req, res) => {
   const newEntry = req.body;
   data.users.push(newEntry.name);
   res.sendStatus(201);
+});
+
+app.delete("/api/data", (req, res) => {
+  console.log("delete req");
+  data.users.pop();
+  res.sendStatus(204);
 });
 
 app.listen(PORT, () => console.log(`Server has started on ${PORT}`));
