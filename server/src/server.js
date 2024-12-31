@@ -1,6 +1,8 @@
 import express from "express";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
+import authRoutes from "./routes/authRoutes.js";
+import todoRoutes from "./routes/todoRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 5003;
@@ -30,24 +32,8 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(publicDirPath, "index.html"));
 });
 
-// DATA response
-app.get("/api/data", (req, res) => {
-  console.log("get method for returning data");
-  res.send(data);
-});
-
-// POST
-app.post("/api/data", (req, res) => {
-  console.log("post req");
-  const newEntry = req.body;
-  data.users.push(newEntry.name);
-  res.sendStatus(201);
-});
-
-app.delete("/api/data", (req, res) => {
-  console.log("delete req");
-  data.users.pop();
-  res.sendStatus(204);
-});
+// Routes
+app.use("/auth", authRoutes);
+app.use("/todos", todoRoutes);
 
 app.listen(PORT, () => console.log(`Server has started on ${PORT}`));
