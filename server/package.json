@@ -2,6 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
 	"dev": "node --watch --env-file=.env --experimental-strip-types --experimental-sqlite ./src/server.js",
     "_comment dev": "nodemon server.js",

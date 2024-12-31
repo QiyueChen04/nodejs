@@ -1,22 +1,33 @@
-const express = require("express");
+import express from "express";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
+
 const app = express();
-const PORT = 8383;
+const PORT = process.env.PORT || 5003;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const publicDirPath = path.join(__dirname, "../public");
+
+// ___________________________________________________________________
+// MIDDLEWARE
+app.use(express.json());
+
+// Serves the HTML files from the public dir
+// Tells express to serve files in public dir as static files/assets.
+// Requests for the CSS files will be resolved to the public dir.
+// NOTE: need this to serve correct CSS when req (GET at '/') comes
+app.use(express.static(path.join(publicDirPath)));
+// ___________________________________________________________________
 
 const data = {
   users: ["name1"],
 };
 
-app.use(express.json());
-
-// HTML repsonse
+// serving up the HTML file from public dir
 app.get("/", (req, res) => {
-  console.log("Sending HTML res");
-  res.send(`
-	<body style="">
-	  <h1>Data: </h1>
-	  <p>${JSON.stringify(data)}</p>
-	</body>
-  `);
+  // res.sendFile(path.join(__dirname, "public", "index.html")); works too, because of line 18
+  res.sendFile(path.join(publicDirPath, "index.html"));
 });
 
 // DATA response

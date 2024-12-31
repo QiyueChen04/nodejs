@@ -1,3 +1,5 @@
 /server/node_modules
 /server/yarn.lock
 /server/.env
+.DS_Store
+/server/.DS_Store
