@@ -6,12 +6,24 @@ echo "AUTH"
 
 echo "Create new user"
 echo "POST /auth/register"
-curl -X POST -H "Content-Type: application/json" -d '{"username": "exampleName@gmail.com", "password": "examplePassword"}' -s http://localhost:5003/auth/register | jq
+token1=$(
+  curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"username": "exampleName@gmail.com", "password": "examplePassword"}' \
+  -s http://localhost:5003/auth/register | jq -r '.token'
+)
+echo $token
 echo
 
 echo "Successful Login"
 echo "POST /auth/login"
-curl -X POST -H "Content-Type: application/json" -d '{"username": "exampleName@gmail.com", "password": "examplePassword"}' -s http://localhost:5003/auth/login | jq
+token2=$(
+  curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"username": "exampleName@gmail.com", "password": "examplePassword"}' \
+  -s http://localhost:5003/auth/login | jq -r '.token'
+)
+
 echo
 
 echo "Unsuccessful Login, non-existant username"
@@ -22,8 +34,4 @@ echo
 echo "Unsuccessful Login, invalid password"
 echo "POST /auth/login"
 curl -X POST -H "Content-Type: application/json" -d '{"username": "exampleName@gmail.com", "password": "invalidPassword"}' -s http://localhost:5003/auth/login | jq
-echo
-
-echo "DELETE /api/data"
-curl -X DELETE -s http://localhost:5003/api/data
 echo
